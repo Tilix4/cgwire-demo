@@ -1,10 +1,12 @@
 import os
 import random
 import gazu
+import sys
 
-gazu.set_host("http://localhost:8080/api")
+gazu.set_host("https://kitsu.felixdavid.com/api")
 
-gazu.log_in("felixg.david@gmail.com", "Prunelle10#")
+# Set user credentials
+gazu.log_in(sys.argv[1], sys.argv[2])
 
 persons = [
     {
@@ -405,7 +407,7 @@ for (index, asset) in enumerate(assets):
             comment,
             file_paths_modeling[index]
         )
-        gazu.task.set_main_preview(asset, preview_file)
+        gazu.task.set_main_preview(preview_file)
         comment = gazu.task.add_comment(task_modeling, done, "Done")
         task_setup = gazu.task.get_task_by_name(asset, setup)
         comment = gazu.task.add_comment(task_setup, wip, "Getting started")
@@ -420,7 +422,7 @@ for (index, shot) in enumerate(shots):
             comment,
             file_paths_sb[index]
         )
-        gazu.task.set_main_preview(shot, preview_file)
+        gazu.task.set_main_preview(preview_file)
         comment = gazu.task.add_comment(task_sb, done, "Done")
 
     if index < len(file_paths_animation) and \
@@ -432,7 +434,7 @@ for (index, shot) in enumerate(shots):
             comment,
             file_paths_animation[index]
         )
-        gazu.task.set_main_preview(shot, preview_file)
+        gazu.task.set_main_preview(preview_file)
         comment = gazu.task.add_comment(task_animation, done, "Done")
 
     if index < len(file_paths_render) and \
@@ -444,28 +446,5 @@ for (index, shot) in enumerate(shots):
             comment,
             file_paths_render[index]
         )
-        gazu.task.set_main_preview(shot, preview_file)
-        comment = gazu.task.add_comment(task_render, done, "Done")
-
-    if index < len(movie_file_paths_animation) and \
-       os.path.exists(movie_file_paths_animation[index]):
-        task_animation = gazu.task.get_task_by_name(shot, animation)
-        comment = gazu.task.add_comment(task_animation, wfa, "New preview")
-        preview_file = gazu.task.add_preview(
-            task_animation,
-            comment,
-            movie_file_paths_animation[index]
-        )
-        comment = gazu.task.add_comment(task_animation, done, "Done")
-
-
-    if index < len(movie_file_paths_render) and \
-       os.path.exists(movie_file_paths_render[index]):
-        task_render = gazu.task.get_task_by_name(shot, render)
-        comment = gazu.task.add_comment(task_render, wfa, "New preview")
-        preview_file = gazu.task.add_preview(
-            task_render,
-            comment,
-            movie_file_paths_render[index]
-        )
+        gazu.task.set_main_preview(preview_file)
         comment = gazu.task.add_comment(task_render, done, "Done")
